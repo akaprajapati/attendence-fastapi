@@ -28,9 +28,6 @@ access_log_table = db.table('access_log')
 
 @app.post("/users/", response_model=User)
 def create_user(user: User):
-    existing_user = users_table.search(Query().rfid_tag==user.rfid_tag)
-    if existing_user:
-        raise HTTPException(status_code=400, detail="RFID tag already exists")
     users_table.insert(user.model_dump())
     return user
 
